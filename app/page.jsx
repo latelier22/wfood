@@ -1,11 +1,13 @@
-import StyleGuide from '@/components/StyleGuide';
+// pages/index.jsx
+import dynamic from 'next/dynamic';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Menu from '@/components/Menu';
 import Reservation from '@/components/Reservation';
 import About from '@/components/About';
-import Map from '@/components/Map';
 import Footer from '@/components/Footer';
+
+const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
 export default function Home() {
   return (
@@ -17,8 +19,6 @@ export default function Home() {
       <About />
       <Map />
       <Footer />
-      {/* <StyleGuide /> */}
-      {/* <div className='h-[4000px]'></div> */}
     </main>
   );
 }
