@@ -18,7 +18,7 @@ const links = [
   },
   {
     path: 'about',
-    name: 'A parle de nous',
+    name: 'On parle de nous',
     offset: -150,
   },
   {

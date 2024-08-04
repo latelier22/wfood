@@ -80,6 +80,21 @@ const ReservationForm = () => {
                   <SelectItem value='3'>3</SelectItem>
                   <SelectItem value='4'>4</SelectItem>
                   <SelectItem value='5'>5</SelectItem>
+                  <SelectItem value='5'>6</SelectItem>
+                  <SelectItem value='5'>7</SelectItem>
+                  <SelectItem value='5'>8</SelectItem>
+                  <SelectItem value='5'>9</SelectItem>
+                  <SelectItem value='5'>10</SelectItem>
+                  <SelectItem value='5'>11</SelectItem>
+                  <SelectItem value='5'>12</SelectItem>
+                  <SelectItem value='5'>13</SelectItem>
+                  <SelectItem value='5'>14</SelectItem>
+                  <SelectItem value='5'>15</SelectItem>
+                  <SelectItem value='5'>16</SelectItem>
+                  <SelectItem value='5'>17</SelectItem>
+                  <SelectItem value='5'>18</SelectItem>
+                  <SelectItem value='5'>19</SelectItem>
+                  <SelectItem value='5'>20</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -87,7 +102,7 @@ const ReservationForm = () => {
         </div>
       </div>
       <Button className='uppercase w-full xl:w-auto xl:self-end'>
-        Réservez uune table !
+        Réservez une table !
       </Button>
     </form>
   );

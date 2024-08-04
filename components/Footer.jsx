@@ -25,70 +25,51 @@ const Footer = () => {
           <div className='flex-1 grid grid-cols-1 xl:grid-cols-3 gap-[50px] mb-8 xl:mb-16'>
             {/* blog */}
             <div>
-              <h4 className='font-semibold mb-5'>Blog</h4>
+              <h4 className='font-semibold mb-5'>GRANDE TERRE</h4>
               <ul className='flex flex-col gap-y-6 text-sm'>
                 <li>
-                  <Link href='/'>
-                    Sit pellentesque neque egestas quis dolor, sit
-                  </Link>
+                  TERANGA Resto&apos; Galerie <br />
+                  16 bis rue Mamawe <br />
+                  97600 MAMOUDZOU
                 </li>
                 <li>
-                  <Link href='/'>
-                    Arcu et tincidunt dictum nunc ut nisi, dolor euismod
-                  </Link>
-                </li>
-                <li>
-                  <Link href='/'>
-                    Tempor, volutpat nulla sed posuere orci ac diam integer
-                  </Link>
-                </li>
-                <li>
-                  <Link href='/'>
-                    Ultrices consectetur orci ultrices viverra mauris laoreet
-                    tincidunt at
-                  </Link>
-                </li>
+                  Fixe 0269623298 / Mobile 0614387559</li>
+
+
+
               </ul>
             </div>
             {/* item */}
             <div>
-              <h4 className='font-semibold mb-5'>New Item</h4>
+              <h4 className='font-semibold mb-5'>PETITE TERRE</h4>
               <ul className='flex flex-col gap-y-6 text-sm'>
                 <li>
-                  <Link href='/'>
-                    Sit pellentesque neque egestas quis dolor, sit
-                  </Link>
+                  TERANGA Resto&apos; Galerie <br />
+                  16 bis rue Mamawe <br />
+                  97600 MAMOUDZOU
                 </li>
                 <li>
-                  <Link href='/'>
-                    Arcu et tincidunt dictum nunc ut nisi, dolor euismod
-                  </Link>
-                </li>
-                <li>
-                  <Link href='/'>
-                    Tempor, volutpat nulla sed posuere orci ac diam integer
-                  </Link>
-                </li>
-                <li>
-                  <Link href='/'>
-                    Ultrices consectetur orci ultrices viverra mauris laoreet
-                    tincidunt at
-                  </Link>
-                </li>
+                  Fixe 0269623298 / Mobile 0614387559</li>
+
+
+
               </ul>
             </div>
             {/* socials */}
             <div>
-              <h4 className='font-semibold mb-5'>Socials</h4>
+              <h4 className='font-semibold mb-5'>Accueil</h4>
               <ul className='flex flex-col gap-y-6 text-sm'>
                 <li>
-                  <Link href='/'>Youtube</Link>
+                  <Link href='/'>Menu</Link>
                 </li>
                 <li>
-                  <Link href='/'>Facebook</Link>
+                  <Link href='/'>Galerie d&apos;Art</Link>
                 </li>
                 <li>
-                  <Link href='/'>Instagram</Link>
+                  <Link href='/'>On parle de nous</Link>
+                </li>
+                <li>
+                  <Link href='/'>Réservez</Link>
                 </li>
               </ul>
             </div>
