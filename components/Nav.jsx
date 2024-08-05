@@ -1,5 +1,8 @@
+'use client';
+import { useSession, signOut } from 'next-auth/react';
 import { Link as ScrollLink } from 'react-scroll';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const links = [
   {
@@ -15,7 +18,7 @@ const links = [
   },
   {
     path: 'galery',
-    name: 'Galerie d\'Art',
+    name: "Galerie d'Art",
     offset: -50,
   },
   {
@@ -31,6 +34,9 @@ const links = [
 ];
 
 const Nav = ({ containerStyles, linkStyles }) => {
+  const { data: session } = useSession();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
     <nav className={`${containerStyles}`}>
       {links.map((link, index) => {
@@ -56,6 +62,7 @@ const Nav = ({ containerStyles, linkStyles }) => {
           );
         }
       })}
+      
     </nav>
   );
 };

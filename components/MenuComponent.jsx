@@ -51,31 +51,34 @@ const fetchMenu = async () => {
 
 const MenuSection = ({ items }) => (
   <Slider {...settings}>
-    {items.map((item, index) => {
-      const imageUrl = item.attributes.image.data.attributes.formats?.medium?.url || item.attributes.image.data.attributes.url;
-      return (
-        <div key={index} className='p-4'>
-          <div className='bg-white shadow-lg p-4' style={{ height: '400px', width: '300px' }}>
-            <div className='overflow-hidden h-2/3'>
-              <Image
-                src={`https://admin.teranga-resto-galerie.fr${imageUrl}`}
-                width={300}
-                height={200}
-                alt={item.attributes.title}
-                className='object-cover object-center w-full h-full'
-                style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }}
-              />
-            </div>
-            <div className='pt-[20px] pb-[28px] px-[30px] h-1/3 flex flex-col justify-center'>
-              <Link href='/'>
-                <h3 className='font-poppins text-black mb-[14px] text-center'>{item.attributes.title}</h3>
-              </Link>
-              <div className='text-xl font-poppins font-semibold text-orange text-center'>{item.attributes.price}€</div>
+    {items
+      .filter(item => item.attributes.image && item.attributes.image.data)
+      .sort((a, b) => (a.attributes.order ?? Infinity) - (b.attributes.order ?? Infinity))
+      .map((item, index) => {
+        const imageUrl = item.attributes.image.data.attributes.formats?.medium?.url || item.attributes.image.data.attributes.url;
+        return (
+          <div key={index} className='p-4'>
+            <div className='bg-white shadow-lg p-4' style={{ height: '400px', width: '300px' }}>
+              <div className='overflow-hidden h-2/3'>
+                <Image
+                  src={`https://admin.teranga-resto-galerie.fr${imageUrl}`}
+                  width={300}
+                  height={200}
+                  alt={item.attributes.title}
+                  className='object-cover object-center w-full h-full'
+                  style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }}
+                />
+              </div>
+              <div className='pt-[20px] pb-[28px] px-[30px] h-1/3 flex flex-col justify-center'>
+                <Link href='/'>
+                  <h3 className='font-poppins text-black mb-[14px] text-center'>{item.attributes.title}</h3>
+                </Link>
+                <div className='text-xl font-poppins font-semibold text-orange text-center'>{item.attributes.price}€</div>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    })}
+        );
+      })}
   </Slider>
 );
 
