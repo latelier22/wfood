@@ -9,7 +9,8 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [menus, setMenus] = useState(initialMenus || { entrees: [], plats: [], desserts: [], boissons: [] });
-  const [newMenu, setNewMenu] = useState({ title: '', price: '', category: 'Entrées', order: '', image: null, locations: [] });
+  const [newMenu, setNewMenu] = useState({ title: '', price: '', category: 'Entrées', order: '', image: null, locations: [], EnAvant: false });
+
   const [imagePreview, setImagePreview] = useState(null);
   const [imageId, setImageId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -42,10 +43,12 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
           price: newMenu.price,
           category: newMenu.category,
           order: newMenu.order,
-          image: imageId ? { id: imageId } : null,
+          image: newMenu.image ? { id: newMenu.image } : imageId ? { id: imageId } : null,
           locations: newMenu.locations.map(id => ({ id })),
+          EnAvant: newMenu.EnAvant,
         },
       };
+      
 
       const newMenuData = await myFetchStrapi('/api/menus', 'POST', payload, 'create menu', { Authorization: `Bearer ${token}` });
 
@@ -71,15 +74,17 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
     setIsEditing(true);
     setEditId(item.id);
     setNewMenu({
-      title: item.attributes.title,
-      price: item.attributes.price,
-      category: item.attributes.category,
-      order: item.attributes.order,
+      title: item.attributes.title || '',
+      price: item.attributes.price || '',
+      category: item.attributes.category || 'Entrées',
+      order: item.attributes.order || '',
       image: item.attributes.image?.data?.id || null,
       locations: item.attributes.locations?.data.map(location => location.id) || [],
+      EnAvant: item.attributes.EnAvant || false,
     });
     setImagePreview(item.attributes.image?.data?.attributes?.url ? `https://admin.teranga-resto-galerie.fr${item.attributes.image.data.attributes.url}` : null);
   };
+
 
   const updateMenu = async () => {
     setLoading(true);
@@ -92,8 +97,10 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
           order: newMenu.order,
           image: newMenu.image ? { id: newMenu.image } : imageId ? { id: imageId } : null,
           locations: newMenu.locations.map(id => ({ id })),
+          EnAvant: newMenu.EnAvant,
         },
       };
+      
 
       const updatedMenu = await myFetchStrapi(`/api/menus/${editId}`, 'PUT', payload, 'update menu', { Authorization: `Bearer ${token}` });
 
@@ -168,12 +175,28 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
     setNewMenu({ ...newMenu, locations: selectedLocations });
   };
 
+  const scrollToForm = () => {
+    const formElement = document.getElementById('menuForm');
+    const yOffset = -50; // Déplacement de 50 pixels vers le haut
+    const y = formElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 mt-16">
       <h1 className="text-center mb-4">Gérer le menu</h1>
       {loading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <div className="mb-4">
+      <div className="mb-4" id="menuForm">
+        <input
+          type="checkbox"
+          name="EnAvant"
+          checked={newMenu.EnAvant}
+          onChange={(e) => setNewMenu({ ...newMenu, EnAvant: e.target.checked })}
+          className="border p-2 mb-2"
+        />Suggestion
+
         <input
           type="text"
           name="title"
@@ -255,67 +278,74 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
               {menus[category]
                 .sort((a, b) => (a.attributes.order ?? a.id) - (b.attributes.order ?? b.id))
                 .map((item) => {
-                const imageUrl = item.attributes.image?.data?.attributes?.url;
-                return (
-                  <div key={item.id} className="p-4 bg-white shadow-lg">
-                    <div className="overflow-hidden">
-                      {imageUrl ? (
-                        <Image
-                          src={`https://admin.teranga-resto-galerie.fr${imageUrl}`}
-                          width={300}
-                          height={200}
-                          alt={item.attributes.title}
-                          className="object-cover object-center w-full h-48"
-                        />
-                      ) : (
-                        <div className="flex items-center justify-center w-full h-48 bg-gray-200">
-                          <span className="text-gray-500">{item.attributes.title}</span>
+                  const imageUrl = item.attributes.image?.data?.attributes?.url;
+                  return (
+                    <div key={item.id} className={`p-4 bg-white shadow-lg ${item.attributes.EnAvant ? 'border-2 border-orange-500' : ''}`}>
+
+                      <div className="overflow-hidden">
+                        {imageUrl ? (
+                          <Image
+                            src={`https://admin.teranga-resto-galerie.fr${imageUrl}`}
+                            width={300}
+                            height={200}
+                            alt={item.attributes.title}
+                            className="object-cover object-center w-full h-48"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center w-full h-48 bg-gray-200">
+                            <span className="text-gray-500">{item.attributes.title}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="pt-4 text-black">
+                        <div className="flex justify-between">
+                          <div className="text-sm text-gray-500">{item.attributes.locations?.data?.length ? item.attributes.locations.data.map(loc => loc.attributes.name).join(', ') : 'Non disponible'}</div>
+                          <div className="text-sm text-gray-500">Order: {item.attributes.order ?? 'N/A'}</div>
                         </div>
-                      )}
-                    </div>
-                    <div className="pt-4 text-black">
-                      <div className="flex justify-between">
-                        <div className="text-sm text-gray-500">{item.attributes.locations?.data?.length ? item.attributes.locations.data.map(loc => loc.attributes.name).join(', ') : 'Non disponible'}</div>
-                        <div className="text-sm text-gray-500">Order: {item.attributes.order ?? 'N/A'}</div>
+                        <input
+                          type="text"
+                          value={item.attributes.title ?? ''}
+                          onChange={(e) => {
+                            const updatedItem = { ...item, attributes: { ...item.attributes, title: e.target.value } };
+                            setMenus((prevMenus) => {
+                              const updatedMenus = { ...prevMenus };
+                              updatedMenus[category] = updatedMenus[category].map((i) => (i.id === item.id ? updatedItem : i));
+                              return updatedMenus;
+                            });
+                          }}
+                          className="font-poppins text-black mb-2 text-center"
+                        />
+                        <input
+                          type="text"
+                          value={item.attributes.price ?? ''}
+                          onChange={(e) => {
+                            const updatedItem = { ...item, attributes: { ...item.attributes, price: e.target.value } };
+                            setMenus((prevMenus) => {
+                              const updatedMenus = { ...prevMenus };
+                              updatedMenus[category] = updatedMenus[category].map((i) => (i.id === item.id ? updatedItem : i));
+                              return updatedMenus;
+                            });
+                          }}
+                          className="text-xl font-poppins font-semibold text-orange text-center"
+                        />
+                        <div className="flex justify-between mt-2">
+                          <button
+                            onClick={() => {
+                              editMenu(item);
+                              scrollToForm();
+                            }}
+                            className="bg-yellow-500 text-black px-4 py-2 mr-2"
+                          >
+                            Editer
+                          </button>
+                          <button onClick={() => handleDelete(item)} className="bg-red-500 text-black px-4 py-2">
+                            Supprimer
+                          </button>
+                        </div>
                       </div>
-                      <input
-                        type="text"
-                        value={item.attributes.title}
-                        onChange={(e) => {
-                          const updatedItem = { ...item, attributes: { ...item.attributes, title: e.target.value } };
-                          setMenus((prevMenus) => {
-                            const updatedMenus = { ...prevMenus };
-                            updatedMenus[category] = updatedMenus[category].map((i) => (i.id === item.id ? updatedItem : i));
-                            return updatedMenus;
-                          });
-                        }}
-                        className="font-poppins text-black mb-2 text-center"
-                      />
-                      <input
-                        type="text"
-                        value={item.attributes.price}
-                        onChange={(e) => {
-                          const updatedItem = { ...item, attributes: { ...item.attributes, price: e.target.value } };
-                          setMenus((prevMenus) => {
-                            const updatedMenus = { ...prevMenus };
-                            updatedMenus[category] = updatedMenus[category].map((i) => (i.id === item.id ? updatedItem : i));
-                            return updatedMenus;
-                          });
-                        }}
-                        className="text-xl font-poppins font-semibold text-orange text-center"
-                      />
-                      <div className="flex justify-between mt-2">
-                        <button onClick={() => editMenu(item)} className="bg-yellow-500 text-black px-4 py-2 mr-2">
-                          Editer
-                        </button>
-                        <button onClick={() => handleDelete(item)} className="bg-red-500 text-black px-4 py-2">
-                          Supprimer
-                        </button>
-                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         ))

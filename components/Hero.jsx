@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
 import { Button } from './ui/button';
-import { Link, Element } from 'react-scroll';
+import { Link } from 'react-scroll';
 
 const Hero = () => {
   return (
@@ -52,10 +52,9 @@ const Hero = () => {
               whileInView={'show'}
               viewport={{ once: false, amount: 0.4 }}
             >
-             
-             <Link to="menu" spy={true} smooth={true} offset={-50} duration={500}>
-             <Button>Nos spécialités</Button>
-    </Link>
+              <Link to="menu" spy={true} smooth={true} offset={-50} duration={500}>
+                <Button>Nos spécialités</Button>
+              </Link>
             </motion.div>
           </div>
           {/* image */}
@@ -65,8 +64,15 @@ const Hero = () => {
             whileInView={'show'}
             viewport={{ once: false, amount: 0.1 }}
             className='hidden xl:flex xl:absolute xl:top-[200px] xl:right-0'
+            style={{ width: 'auto', height: 'auto' }}
           >
-            <Image src='/hero/assiette-accueil.png' width={756} height={682} alt='' />
+            <Image
+              src='/hero/assiette-accueil.png'
+              width={756}
+              height={682}
+              alt=''
+              style={{ width: 'auto', height: 'auto' }}
+            />
           </motion.div>
         </div>
       </div>
@@ -77,8 +83,15 @@ const Hero = () => {
         whileInView={'show'}
         viewport={{ once: false, amount: 0.1 }}
         className='hidden xl:flex xl:relative xl:-top-36'
+        style={{ width: 'auto', height: 'auto' }}
       >
-        <Image src='/hero/coffee.png' width={386} height={404} alt='' />
+        <Image
+          src='/hero/coffee.png'
+          width={386}
+          height={404}
+          alt=''
+          style={{ width: 'auto', height: 'auto' }}
+        />
       </motion.div>
     </section>
   );

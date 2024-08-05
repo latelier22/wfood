@@ -1,6 +1,8 @@
 import { getSession } from 'next-auth/react';
 import ManageMenuClient from './ManageMenuClient';
 import myFetchStrapi from "@/components/myFetchSTRAPI";
+import Header from '@/components/Header';
+import Footer from '@/components/Footer'
 
 export const fetchMenusServer = async (token) => {
   try {
@@ -38,7 +40,11 @@ async function ManageMenuPage({ req }) {
   ]);
 
   return (
-    <ManageMenuClient initialMenus={initialMenus} initialLocations={locations} />
+    <>
+    <Header />
+    <ManageMenuClient initialMenus={initialMenus} initialLocations={locations}/>
+    <Footer/>
+    </>
   );
 }
 

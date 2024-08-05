@@ -54,10 +54,10 @@ const MenuSection = ({ items }) => (
     {items
       .filter(item => item.attributes.image && item.attributes.image.data)
       .sort((a, b) => (a.attributes.order ?? Infinity) - (b.attributes.order ?? Infinity))
-      .map((item, index) => {
+      .map(item => {
         const imageUrl = item.attributes.image.data.attributes.formats?.medium?.url || item.attributes.image.data.attributes.url;
         return (
-          <div key={index} className='p-4'>
+          <div key={item.id} className='p-4'>
             <div className='bg-white shadow-lg p-4' style={{ height: '400px', width: '300px' }}>
               <div className='overflow-hidden h-2/3'>
                 <Image

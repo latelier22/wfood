@@ -40,8 +40,8 @@ const Header = () => {
         <div className='flex items-center justify-between'>
           {/* logo */}
           <Link href='/'>
-            <Image src='/logo.jpg' width={200} height={75} alt='' />
-          </Link>
+  <Image src='/logo.jpg' width={200} height={75} style={{ width: 'auto', height: 'auto' }} alt='' />
+</Link>
           {/* nav */}
           <Nav
             containerStyles='hidden xl:flex gap-x-12 text-white'
