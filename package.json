@@ -30,6 +30,7 @@
     "react-scroll": "^1.9.0",
     "react-slick": "^0.30.2",
     "react-spinners": "^0.14.1",
+    "sendgrid": "^5.2.3",
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^2.1.0",
     "tailwindcss-animate": "^1.0.7"
