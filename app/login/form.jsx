@@ -3,7 +3,7 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-import FormAuth from "@/components/UI/FormAuth"
+import FormAuth from "@/components/ui/FormAuth"
 
 export default function Form() {
   const router = useRouter();
