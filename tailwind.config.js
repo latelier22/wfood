@@ -19,7 +19,7 @@ module.exports = {
       xl: '1200px',
     },
     colors: {
-      body: '#e5e5e5',
+      body: '#caaa5e',
       white: '#fff',
       green: { DEFAULT: '#539592', hover: '#40807d' },
       black: { DEFAULT: '#273029', heavy: '#1b211c' },
@@ -39,6 +39,7 @@ module.exports = {
       },
       backgroundImage: {
         hero: 'url(/hero/bg.png)',
+        hero2: 'url(/hero/bg2.png)',
         menu: 'url(/menu/bg.png)',
         reservation: 'url(/reservation/bg.png)',
         footer: 'url(/footer/bg.png)',

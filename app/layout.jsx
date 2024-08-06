@@ -1,5 +1,3 @@
-import { NextAuthProvider } from "@/utils/NextAuthProvider"
-
 import { Lora, Poppins } from 'next/font/google';
 import './globals.css';
 
@@ -24,9 +22,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={`${lora.variable} ${poppins.variable}`}>
-        <NextAuthProvider>
+        
           {children}
-        </NextAuthProvider>
+       
       </body>
     </html>
   );
