@@ -1,12 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoIosArrowRoundForward } from 'react-icons/io';
 import Slider from 'react-slick';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../variants';
-import menu from "./menu";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -44,35 +43,63 @@ const settings = {
   ],
 };
 
+const fetchMenu = async () => {
+  const res = await fetch('https://admin.teranga-resto-galerie.fr/api/menus?populate=*');
+  const data = await res.json();
+  return data.data;
+};
+
 const MenuSection = ({ items }) => (
   <Slider {...settings}>
-    {items.map((item, index) => (
-      <div key={index} className='p-4'>
-        <div className='bg-white shadow-lg p-4' style={{ height: '400px', width: '300px' }}>
-          <div className='overflow-hidden h-2/3'>
-            <Image
-              src={item.img}
-              width={300}
-              height={200}
-              alt={item.title}
-              className='object-cover object-center w-full h-full'
-            />
+    {items
+      .filter(item => item.attributes.image && item.attributes.image.data)
+      .sort((a, b) => (a.attributes.order ?? Infinity) - (b.attributes.order ?? Infinity))
+      .map(item => {
+        const imageUrl = item.attributes.image.data.attributes.formats?.medium?.url || item.attributes.image.data.attributes.url;
+        return (
+          <div key={item.id} className='p-4'>
+            <div className='bg-white shadow-lg p-4' style={{ height: '400px', width: '300px' }}>
+              <div className='overflow-hidden h-2/3'>
+                <Image
+                  src={`https://admin.teranga-resto-galerie.fr${imageUrl}`}
+                  width={300}
+                  height={200}
+                  alt={item.attributes.title}
+                  className='object-cover object-center w-full h-full'
+                  style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }}
+                />
+              </div>
+              <div className='pt-[20px] pb-[28px] px-[30px] h-1/3 flex flex-col justify-center'>
+                <Link href='/'>
+                  <h3 className='font-poppins text-black mb-[14px] text-center'>{item.attributes.title}</h3>
+                </Link>
+                <div className='text-xl font-poppins font-semibold text-orange text-center'>{item.attributes.price}€</div>
+              </div>
+            </div>
           </div>
-          <div className='pt-[20px] pb-[28px] px-[30px] h-1/3 flex flex-col justify-center'>
-            <Link href='/'>
-              <h3 className='font-poppins text-black mb-[14px] text-center'>{item.title}</h3>
-            </Link>
-            <div className='text-xl font-poppins font-semibold text-orange text-center'>{item.price}</div>
-          </div>
-        </div>
-      </div>
-    ))}
+        );
+      })}
   </Slider>
 );
 
-
 const Menu = () => {
   const [activeSection, setActiveSection] = useState('plats');
+  const [menu, setMenu] = useState({ entrees: [], plats: [], desserts: [], boissons: [] });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const menuData = await fetchMenu();
+      const categorizedMenu = {
+        entrees: menuData.filter(item => item.attributes.category === 'Entrées'),
+        plats: menuData.filter(item => item.attributes.category === 'Plats'),
+        desserts: menuData.filter(item => item.attributes.category === 'Desserts'),
+        boissons: menuData.filter(item => item.attributes.category === 'Boissons'),
+      };
+      setMenu(categorizedMenu);
+    };
+
+    fetchData();
+  }, []);
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
