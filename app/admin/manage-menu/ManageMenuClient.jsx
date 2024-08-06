@@ -5,11 +5,11 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import myFetchStrapi from "@/components/myFetchSTRAPI";
 
-const ManageMenuClient = ({ initialMenus, initialLocations }) => {
+const ManageMenuClient = ({ initialMenus }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [menus, setMenus] = useState(initialMenus || { entrees: [], plats: [], desserts: [], boissons: [] });
-  const [newMenu, setNewMenu] = useState({ title: '', price: '', category: 'Entrées', order: '', image: null, locations: [], EnAvant: false });
+  const [newMenu, setNewMenu] = useState({ title: '', price: '', category: 'Entrées', order: 0, image: null, EnAvant: false, petiteTerre : false, grandeTerre : false });
 
   const [imagePreview, setImagePreview] = useState(null);
   const [imageId, setImageId] = useState(null);
@@ -17,7 +17,6 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
   const [editId, setEditId] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [menuToDelete, setMenuToDelete] = useState(null);
-  const [locations, setLocations] = useState(initialLocations || []);
 
   const { data: session, status } = useSession();
   const token = session?.jwt;
@@ -44,8 +43,9 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
           category: newMenu.category,
           order: newMenu.order,
           image: newMenu.image ? { id: newMenu.image } : imageId ? { id: imageId } : null,
-          locations: newMenu.locations.map(id => ({ id })),
           EnAvant: newMenu.EnAvant,
+          petiteTerre : newMenu.petiteTerre,
+          grandeTerre : newMenu.grandeTerre
         },
       };
       
@@ -60,7 +60,7 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
         };
       });
 
-      setNewMenu({ title: '', price: '', category: 'Entrées', order: '', image: null, locations: [] });
+      setNewMenu({ title: '', price: '', category: 'Entrées', order: '', image: null, petiteTerre : false, grandeTerre :false });
       setImagePreview(null);
       setImageId(null);
     } catch (error) {
@@ -77,13 +77,15 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
       title: item.attributes.title || '',
       price: item.attributes.price || '',
       category: item.attributes.category || 'Entrées',
-      order: item.attributes.order || '',
+      order: item.attributes.order || 0,
       image: item.attributes.image?.data?.id || null,
-      locations: item.attributes.locations?.data.map(location => location.id) || [],
       EnAvant: item.attributes.EnAvant || false,
+      petiteTerre : item.attributes.petiteTerre || false,
+      grandeTerre : item.attributes.grandeTerre || false
     });
     setImagePreview(item.attributes.image?.data?.attributes?.url ? `https://admin.teranga-resto-galerie.fr${item.attributes.image.data.attributes.url}` : null);
   };
+  
 
 
   const updateMenu = async () => {
@@ -96,27 +98,27 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
           category: newMenu.category,
           order: newMenu.order,
           image: newMenu.image ? { id: newMenu.image } : imageId ? { id: imageId } : null,
-          locations: newMenu.locations.map(id => ({ id })),
           EnAvant: newMenu.EnAvant,
+          petiteTerre : newMenu.petiteTerre,
+          grandeTerre : newMenu.grandeTerre
         },
       };
-      
-
+  
       const updatedMenu = await myFetchStrapi(`/api/menus/${editId}`, 'PUT', payload, 'update menu', { Authorization: `Bearer ${token}` });
-
+  
       setMenus((prevMenus) => {
         const updatedMenus = { ...prevMenus };
         const category = newMenu.category.toLowerCase();
         if (updatedMenus[category]) {
-          const index = updatedMenus[category].findIndex((item) => item.id === editId);
-          if (index !== -1) {
+          const index = updatedMenus[category]?.findIndex((item) => item.id === editId);
+          if (index !== -1 && index !== undefined) {
             updatedMenus[category][index] = updatedMenu.data;
           }
         }
         return updatedMenus;
       });
-
-      setNewMenu({ title: '', price: '', category: 'Entrées', order: '', image: null, locations: [] });
+  
+      setNewMenu({ title: '', price: '', category: 'Entrées', order: '', image: null});
       setImagePreview(null);
       setImageId(null);
       setIsEditing(false);
@@ -127,7 +129,7 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
       setLoading(false);
     }
   };
-
+  
   const handleDelete = (item) => {
     setShowModal(true);
     setMenuToDelete(item);
@@ -164,17 +166,7 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
     }
   };
 
-  const handleLocationChange = (e) => {
-    const { options } = e.target;
-    const selectedLocations = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedLocations.push(options[i].value);
-      }
-    }
-    setNewMenu({ ...newMenu, locations: selectedLocations });
-  };
-
+  
   const scrollToForm = () => {
     const formElement = document.getElementById('menuForm');
     const yOffset = -50; // Déplacement de 50 pixels vers le haut
@@ -194,9 +186,22 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
           name="EnAvant"
           checked={newMenu.EnAvant}
           onChange={(e) => setNewMenu({ ...newMenu, EnAvant: e.target.checked })}
-          className="border p-2 mb-2"
+          className="border p-2  m-2"
         />Suggestion
-
+         <input
+          type="checkbox"
+          name="petiteTerre"
+          checked={newMenu.petiteTerre}
+          onChange={(e) => setNewMenu({ ...newMenu, petiteTerre: e.target.checked })}
+          className="border p-2 m-2"
+        />Petite-Terre
+         <input
+          type="checkbox"
+          name="GrandeTerre"
+          checked={newMenu.grandeTerre}
+          onChange={(e) => setNewMenu({ ...newMenu, grandeTerre: e.target.checked })}
+          className="border p-2 m-2"
+        />Grande-Terre
         <input
           type="text"
           name="title"
@@ -227,15 +232,7 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
           <option value="Desserts">Desserts</option>
           <option value="Boissons">Boissons</option>
         </select>
-        <select multiple={true} value={newMenu.locations} onChange={handleLocationChange} className="border p-2 mb-2 w-full">
-          {locations.length > 0 ? (
-            locations.map(location => (
-              <option key={location.id} value={location.id}>{location.attributes.name}</option>
-            ))
-          ) : (
-            <option disabled>No locations available</option>
-          )}
-        </select>
+       
         <input type="file" onChange={handleImageChange} className="border p-2 mb-2 w-full" />
         <button
           onClick={isEditing ? updateMenu : createMenu}
@@ -299,7 +296,9 @@ const ManageMenuClient = ({ initialMenus, initialLocations }) => {
                       </div>
                       <div className="pt-4 text-black">
                         <div className="flex justify-between">
-                          <div className="text-sm text-gray-500">{item.attributes.locations?.data?.length ? item.attributes.locations.data.map(loc => loc.attributes.name).join(', ') : 'Non disponible'}</div>
+                          <div className="text-sm text-gray-500">{item.attributes.petiteTerre ? "Petite-Terre" : ''}</div>
+                          <div className="text-sm text-gray-500">{item.attributes.grandeTerre ? "Grande-Terre" : ''}</div>
+                          <div className="text-sm text-gray-500">{!item.attributes.petiteTerre && !item.attributes.grandeTerre  ? "NON-DISPONIBLE" : ''}</div>
                           <div className="text-sm text-gray-500">Order: {item.attributes.order ?? 'N/A'}</div>
                         </div>
                         <input

@@ -63,6 +63,9 @@ const Header = () => {
                     <Link href='/admin/manage-menu' className='block px-4 py-2 text-white text-sm hover:bg-gray-100'>
                       Gérer le menu
                     </Link>
+                    <Link href='https://admin.teranga-resto-galerie.fr' className='block px-4 py-2 text-white text-sm hover:bg-gray-100'>
+                      Admin STRAPI
+                    </Link>
                     <button
                       onClick={() => signOut()}
                       className='block w-full text-left px-4 py-2 text-sm text-white  hover:text-orange-hover'

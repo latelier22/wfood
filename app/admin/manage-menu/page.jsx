@@ -20,29 +20,19 @@ export const fetchMenusServer = async (token) => {
   }
 };
 
-export const fetchLocationsServer = async (token) => {
-  try {
-    const data = await myFetchStrapi('/api/locations', 'GET', null, 'fetch locations');
-    return data.data;
-  } catch (error) {
-    console.error('Error fetching locations:', error);
-    return [];
-  }
-};
 
 async function ManageMenuPage({ req }) {
   const session = await getSession({ req });
   const token = session?.jwt;
   
   const [initialMenus, locations] = await Promise.all([
-    fetchMenusServer(token),
-    fetchLocationsServer(token)
+    fetchMenusServer(token)
   ]);
 
   return (
     <>
     <Header />
-    <ManageMenuClient initialMenus={initialMenus} initialLocations={locations}/>
+    <ManageMenuClient initialMenus={initialMenus}/>
     <Footer/>
     </>
   );
