@@ -1,0 +1,314 @@
+{
+    "data": [
+      {
+        "title": "EAUX/SODAS",
+        "category": "Boissons",
+        "items": [
+          {
+            "name": "SODA (FANTA, COCA, ORANGINA, OASIS, PERRIER, SCHWEPPES, CAPPY)",
+            "price": null,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "RED BULL",
+            "price": 4,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "EAU MINERALE PLATE / GAZEUSE",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          }
+        ]
+      },
+      {
+        "title": "LES DESSERTS",
+        "category": "Desserts",
+        "items": [
+          {
+            "name": "GLACES 1 BOULE",
+            "price": 2.5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "GLACES 2 BOULES",
+            "price": 4.5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "THE OU CAFE GOURMAND",
+            "price": 10,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "CAFÉ NESPRESSO OU CAFÉ TOUBA GOURMAND",
+            "price": 10,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "MOUSSE AU CHOCOLAT GINGEMBRE",
+            "price": 4,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "PANNA COTTA AUX FRUITS ROUGES",
+            "price": 6,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "PATAYA OFFERT THÉ A LA MENTHE",
+            "price": 1,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          }
+        ]
+      },
+      {
+        "title": "LES BOISSONS",
+        "category": "Boissons",
+        "items": [
+          {
+            "name": "STATUT DE LA RENNAISSANCE DAKAR",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "JUS EXOTIQUES FAITS MAISON",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "BAOBAB TAMARIN",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "TAMARIN PASSION",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "CARAMBOLE PASSION",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "MANGUE PASSION",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "BISSAP",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          }
+        ]
+      },
+      {
+        "title": "BOISSONS ALCOOLISEES",
+        "category": "Boissons Alcoolisées",
+        "items": [
+          {
+            "name": "GRIMBERGEN (ROUGE, BLONDE, BLANCHE)",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "HEINKEIN",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "DODO",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "DESPERADOS",
+            "price": 6,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "RICARD / KIR / MARTINI",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "RHUM WHISKY GET",
+            "price": 6,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "PLANTEUR",
+            "price": 8,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "TI PUNCH",
+            "price": 8,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "APERITIF RHUM ARRANGÉ",
+            "price": 5,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "BAOBAB + PASSION",
+            "price": null,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "BAOBAB ANANAS",
+            "price": null,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "GINGEMBRE",
+            "price": null,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          }
+        ]
+      },
+      {
+        "title": "VINS",
+        "category": "Boissons",
+        "items": [
+          {
+            "name": "ROUGE - ROSÉ - BLANC (La Bouteille)",
+            "price": 20,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          },
+          {
+            "name": "ROUGE - ROSÉ - BLANC (Le Verre)",
+            "price": 4,
+            "petiteTerre": true,
+            "grandeTerre": true,
+            "image": {
+              "data": null
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
