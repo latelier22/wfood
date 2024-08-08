@@ -101,7 +101,7 @@ const ReservationForm = () => {
           </div>
         </div>
       </div>
-      <Button className='uppercase w-full xl:w-auto xl:self-end'>
+      <Button variant='red' className='uppercase w-full xl:w-auto xl:self-end'>
         Réservez une table !
       </Button>
     </form>

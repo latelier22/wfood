@@ -11,6 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: 'text-white bg-green hover:bg-green-hover',
         orange: 'text-white bg-orange hover:bg-orange-hover',
+        red: 'text-white bg-red hover:bg-red-hover',
         input: 'bg-white/5 border border-white/10 text-white',
       },
       size: {

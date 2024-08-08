@@ -1,4 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+const dotenv = require('dotenv');
+dotenv.config();
+
+const resto = process.env.RESTO;
+
+const colors = resto === 'PETITE-TERRE' ? {
+  green: { DEFAULT: '#ab511a', hover: '#7b4212' },
+  red: { DEFAULT: '#539592', hover: '#40807d' }
+} : {
+  green: { DEFAULT: '#539592', hover: '#40807d' },
+  red: { DEFAULT: '#ab511a', hover: '#7b4212' }
+};
+
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -19,11 +32,8 @@ module.exports = {
       xl: '1200px',
     },
     colors: {
-      body: '#e5e5e5',
+      body: '#caaa5e',
       white: '#fff',
-      green: { DEFAULT: '#539592', hover: '#40807d' },
-      black: { DEFAULT: '#273029', heavy: '#1b211c' },
-      red: '#7b4212',
       grey: '#888888',
       orange: {
         DEFAULT: '#f2994a',
@@ -31,6 +41,8 @@ module.exports = {
       },
       outline: '#f1f1f1',
       pink: '#ffa5a5',
+      black: { DEFAULT: '#273029', heavy: '#1b211c' },
+      ...colors,
     },
     extend: {
       fontFamily: {
@@ -38,10 +50,10 @@ module.exports = {
         poppins: ['var(--font-poppins)', 'sans-serif'],
       },
       backgroundImage: {
-        hero: 'url(/hero/bg.png)',
-        menu: 'url(/menu/bg.png)',
-        reservation: 'url(/reservation/bg.png)',
-        footer: 'url(/footer/bg.png)',
+        hero: resto === 'PETITE-TERRE' ? 'url(/hero/bg2.png)' : 'url(/hero/bg.png)',
+        menu: resto === 'PETITE-TERRE' ? 'url(/menu/bg2.png)' : 'url(/menu/bg.png)',
+        reservation: resto === 'PETITE-TERRE' ? 'url(/reservation/bg2.png)' : 'url(/reservation/bg.png)',
+        footer: resto === 'PETITE-TERRE' ? 'url(/footer/bg2.png)' : 'url(/footer/bg.png)',
       },
       boxShadow: {
         primary: '40px 4px 40px 0px rgba(68, 68, 68, 0.25)',

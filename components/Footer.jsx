@@ -28,9 +28,9 @@ const Footer = () => {
               <h4 className='font-semibold mb-5'>GRANDE TERRE</h4>
               <ul className='flex flex-col gap-y-6 text-sm'>
                 <li>
-                  TERANGA Resto&apos; Galerie <br />
-                  16 bis rue Mamawe <br />
-                  97600 MAMOUDZOU
+                Resto Bonéra by TERANGA <br />
+                place congrès  <br />
+                97615 PAMANDZI
                 </li>
                 <li>
                   Fixe 0269623298 / Mobile 0614387559</li>

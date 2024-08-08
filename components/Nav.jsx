@@ -12,15 +12,22 @@ const links = [
     external: true,
   },
   {
-    path: 'menu',
+    path: '/menu',
     name: 'Menu',
     offset: -50,
+    external: true,
   },
+  ,
   {
-    path: 'galery',
-    name: "Galerie d'Art",
+    path: 'menu',
+    name: 'Suggestions',
     offset: -50,
   },
+  // {
+  //   path: 'galery',
+  //   name: "Galerie d'Art",
+  //   offset: -50,
+  // },
   {
     path: 'about',
     name: 'On parle de nous',

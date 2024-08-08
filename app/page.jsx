@@ -11,7 +11,7 @@ const Map = dynamic(() => import('@/components/Map'), { ssr: false });
 
 export default function Home() {
   return (
-    <main className='w-full max-w-[1440px] bg-white mx-auto overflow-hidden'>
+    <main className='w-full max-w-[1440px] bg-body mx-auto overflow-hidden'>
       <Header />
       <Hero />
       <Menu />
