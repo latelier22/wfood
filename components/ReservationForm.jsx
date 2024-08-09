@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
-
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
@@ -10,11 +9,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-
-import Link from 'next/link';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-
 import {
   Select,
   SelectContent,
@@ -27,17 +23,48 @@ import {
 
 const ReservationForm = () => {
   const [date, setDate] = useState();
+  const [people, setPeople] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = {
+      firstname: event.target.firstname.value,
+      lastname: event.target.lastname.value,
+      date: date,
+      people: people,
+      email: event.target.email.value,
+    };
+
+    try {
+      const response = await fetch('/api/reservation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert('Réservation envoyée avec succès');
+      } else {
+        alert('Erreur lors de l\'envoi de la réservation');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
-    <form className='flex flex-col gap-y-10'>
+    <form className='flex flex-col gap-y-10' onSubmit={handleSubmit}>
       <div className='grid gap-[30px]'>
         <div className='grid grid-cols-1 xl:grid-cols-2 gap-[30px]'>
           <div>
             <Label htmlFor='firstname'>Prénom</Label>
-            <Input id='firstname' type='text' />
+            <Input id='firstname' name='firstname' type='text' required />
           </div>
           <div>
             <Label htmlFor='lastname'>Nom</Label>
-            <Input id='lastname' type='text' />
+            <Input id='lastname' name='lastname' type='text' required />
           </div>
         </div>
 
@@ -68,37 +95,27 @@ const ReservationForm = () => {
           {/* select */}
           <div>
             <Label>Couvert(s)</Label>
-            <Select>
+            <Select onValueChange={(value) => setPeople(value)}>
               <SelectTrigger className='w-full'>
                 <SelectValue placeholder='Combien de personnes?' />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>People</SelectLabel>
-                  <SelectItem value='1'>1</SelectItem>
-                  <SelectItem value='2'>2</SelectItem>
-                  <SelectItem value='3'>3</SelectItem>
-                  <SelectItem value='4'>4</SelectItem>
-                  <SelectItem value='5'>5</SelectItem>
-                  <SelectItem value='6'>6</SelectItem>
-                  <SelectItem value='7'>7</SelectItem>
-                  <SelectItem value='8'>8</SelectItem>
-                  <SelectItem value='9'>9</SelectItem>
-                  <SelectItem value='10'>10</SelectItem>
-                  <SelectItem value='11'>11</SelectItem>
-                  <SelectItem value='12'>12</SelectItem>
-                  <SelectItem value='13'>13</SelectItem>
-                  <SelectItem value='14'>14</SelectItem>
-                  <SelectItem value='15'>15</SelectItem>
-                  <SelectItem value='16'>16</SelectItem>
-                  <SelectItem value='17'>17</SelectItem>
-                  <SelectItem value='18'>18</SelectItem>
-                  <SelectItem value='19'>19</SelectItem>
-                  <SelectItem value='20'>20</SelectItem>
+                  {[...Array(20)].map((_, i) => (
+                    <SelectItem key={i + 1} value={(i + 1).toString()}>
+                      {i + 1}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
           </div>
+        </div>
+
+        <div>
+          <Label htmlFor='email'>Email</Label>
+          <Input id='email' name='email' type='email' required />
         </div>
       </div>
       <Button variant='red' className='uppercase w-full xl:w-auto xl:self-end'>
