@@ -28,7 +28,7 @@ async function myFetch(endpoint, method, body, entity, additionalHeaders = {}) {
 
         const data = await response.json();
 
-        console.log(additionalHeaders,"body",body,"data",data)
+        console.log("endpoint",endpoint,"headers",additionalHeaders,"body",body,"data",data)
 
         // if (!response.ok) {
         //     const error = new Error(`Failed to fetch ${entity}: Status ${response.status}`);

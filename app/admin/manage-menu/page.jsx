@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 
 export const fetchMenusServer = async (token) => {
   try {
-    const data = await myFetchStrapi('/api/menus?populate=*', 'GET', null, 'fetch menus');
+    const data = await myFetchStrapi('/api/menus?populate=*&pagination[page]=1&pagination[pageSize]=100', 'GET', null, 'fetch menus');
     const categorizedMenu = {
       entrees: data.data.filter(item => item.attributes.category === 'Entrées'),
       plats: data.data.filter(item => item.attributes.category === 'Plats'),

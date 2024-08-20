@@ -7,11 +7,18 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { fadeIn } from '@/variants';
 import Suggestions from '@/components/Suggestions';
+import myFetch from '@/components/myFetchSTRAPI';
 
 const fetchMenu = async () => {
-  const res = await fetch('https://admin.teranga-resto-galerie.fr/api/menus?populate=*');
-  const data = await res.json();
-  return data.data;
+
+const resto = process.env.RESTO;
+
+
+  const res = await myFetch('/api/menus?populate=*&pagination[page]=1&pagination[pageSize]=100', 'GET', null, 'get Menus 100 par page');
+  // const res = await fetch('https://admin.teranga-resto-galerie.fr/api/menus?populate=*');
+  
+  console.log(res.data[0])
+  return res.data;
 };
 
 const MenuSection = ({ title, items, hoveredItemId, setHoveredItemId }) => (
