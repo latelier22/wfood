@@ -10,16 +10,36 @@ import Suggestions from '@/components/Suggestions';
 import myFetch from '@/components/myFetchSTRAPI';
 
 const fetchMenu = async () => {
+  const resto = process.env.NEXT_PUBLIC_RESTO; // "PETITE-TERRE" ou "GRANDE-TERRE"
 
-const resto = process.env.RESTO;
+  if (!resto) {
+    console.error("La variable d'environnement RESTO est indéfinie.");
+    return [];
+  }
 
-
+  // Récupération des données avec pagination
   const res = await myFetch('/api/menus?populate=*&pagination[page]=1&pagination[pageSize]=100', 'GET', null, 'get Menus 100 par page');
-  // const res = await fetch('https://admin.teranga-resto-galerie.fr/api/menus?populate=*');
-  
-  console.log(res.data[0])
-  return res.data;
+
+  // Vérifiez que la réponse contient bien des données
+  if (!res || !res.data) {
+    console.error("Aucune donnée récupérée.");
+    return [];
+  }
+
+  // Filtrer en fonction de la valeur de resto
+  const filteredData = res.data.filter(item => {
+    if (resto === 'PETITE-TERRE') {
+      return item.attributes.petiteTerre === true;
+    } else if (resto === 'GRANDE-TERRE') {
+      return item.attributes.grandeTerre === true;
+    }
+    return false;
+  });
+
+  return filteredData;
 };
+
+
 
 const MenuSection = ({ title, items, hoveredItemId, setHoveredItemId }) => (
   <div className='mb-16 flex'>
@@ -58,7 +78,7 @@ const MenuSection = ({ title, items, hoveredItemId, setHoveredItemId }) => (
           })}
       </div>
     </div>
-    <div className='w-1/3 flex flex-col'>
+    <div className='w-1/3 flex flex-col ml-8'>
       <h3 className='text-2xl font-bold mb-6'>{title} - Liste</h3>
       <div className='bg-white p-4 shadow-lg rounded-lg flex-1'>
         <ul>
